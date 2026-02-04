@@ -39,6 +39,7 @@ export function Footer() {
                             <FooterLink href="/cryolipolyse-minceur">Cryolipolyse</FooterLink>
                             <FooterLink href="/soin-hydrafacial">Hydrafacial</FooterLink>
                             <FooterLink href="/injections-esthetique">Injections</FooterLink>
+                            <FooterLink href="/blog">Blog</FooterLink>
                         </ul>
                     </div>
 

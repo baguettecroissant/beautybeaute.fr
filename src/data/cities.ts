@@ -1,15 +1,58 @@
 /**
  * Cities Data Loader
- * Provides typed access to 35K French cities with utility functions
+ * Provides typed access to major French cities with utility functions
  */
 
 import { City } from '@/types';
-import citiesData from './cities-full.json';
+import citiesData from './cities.json';
 
-// Type assertion and sort by population descending
-let loadedCities: City[] = (citiesData as City[]).sort(
-    (a, b) => b.population - a.population
-);
+// Extended type to handle both formats
+interface RawCity {
+    name: string;
+    slug: string;
+    zip?: string;
+    zipCode?: string;
+    department_code: string;
+    population: number;
+    lat?: number;
+    lng?: number;
+    coordinates?: { lat: number; lng: number };
+    region?: string;
+}
+
+// Transform and normalize city data
+function normalizeCity(raw: RawCity): City {
+    return {
+        name: raw.name,
+        slug: raw.slug,
+        zip: raw.zip || raw.zipCode || '',
+        department_code: raw.department_code,
+        population: raw.population || 0,
+        lat: raw.lat || raw.coordinates?.lat || 0,
+        lng: raw.lng || raw.coordinates?.lng || 0,
+        region: raw.region,
+    };
+}
+
+// Load, normalize, and deduplicate cities
+const rawCities = (citiesData as RawCity[]).map(normalizeCity);
+
+// Sort by population descending
+rawCities.sort((a, b) => b.population - a.population);
+
+// Deduplicate by city name (keep the one with highest population)
+const cityByName = new Map<string, City>();
+rawCities.forEach(city => {
+    const normalizedName = city.name.toLowerCase().trim();
+    if (!cityByName.has(normalizedName)) {
+        cityByName.set(normalizedName, city);
+    }
+});
+
+let loadedCities: City[] = Array.from(cityByName.values());
+
+// Re-sort after deduplication
+loadedCities.sort((a, b) => b.population - a.population);
 
 // Patcher les slugs pour les grandes villes (Paris, Lyon, Marseille)
 // On prend le premier arrondissement trouvé et on lui donne le slug simple
@@ -29,8 +72,6 @@ majorCities.forEach(major => {
     );
 
     if (matchIndex !== -1) {
-        // On clone pour ne pas muter l'original si utilisé ailleurs, mais ici on remplace le slug
-        // En fait, on veut juste que CETTE ville soit accessible via le slug simple
         loadedCities[matchIndex].slug = major.simpleSlug;
     }
 });

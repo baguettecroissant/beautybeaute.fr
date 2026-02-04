@@ -190,29 +190,68 @@ export default async function CentreProfilePage({
                             </div>
                         </div>
 
-                        {/* Reviews placeholder */}
-                        <div className="glass p-8 rounded-3xl border border-white/5">
-                            <h2 className="text-2xl font-bold text-white mb-4">Avis clients</h2>
-                            <div className="space-y-4">
-                                {[
-                                    { name: 'Sophie M.', rating: 5, text: 'Excellent accueil et résultats remarquables. Je recommande vivement !' },
-                                    { name: 'Marie L.', rating: 5, text: 'Professionnels à l\'écoute, très satisfaite de mes séances.' },
-                                    { name: 'Julie P.', rating: 4, text: 'Bon rapport qualité-prix, équipe sympathique.' },
-                                ].map((review, i) => (
-                                    <div key={i} className="bg-white/5 p-4 rounded-2xl">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <span className="font-medium text-white">{review.name}</span>
-                                            <div className="flex">
-                                                {[...Array(review.rating)].map((_, j) => (
-                                                    <Star key={j} className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                                                ))}
-                                            </div>
+                        {/* Reviews section - only show for real listings */}
+                        {centre.isReal && centre.reviewsPerScore && (
+                            <div className="glass p-8 rounded-3xl border border-white/5">
+                                <h2 className="text-2xl font-bold text-white mb-4">Avis Google</h2>
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div className="text-4xl font-bold text-white">{centre.rating}</div>
+                                    <div>
+                                        <div className="flex">
+                                            {[...Array(5)].map((_, i) => (
+                                                <Star
+                                                    key={i}
+                                                    className={`h-5 w-5 ${i < Math.round(centre.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-zinc-600'}`}
+                                                />
+                                            ))}
                                         </div>
-                                        <p className="text-zinc-400 text-sm">{review.text}</p>
+                                        <div className="text-zinc-400 text-sm">{centre.reviewCount} avis</div>
                                     </div>
-                                ))}
+                                </div>
+
+                                {/* Review distribution bars */}
+                                <div className="space-y-2">
+                                    {[5, 4, 3, 2, 1].map((score) => {
+                                        const count = centre.reviewsPerScore?.[String(score)] || 0;
+                                        const percentage = centre.reviewCount > 0 ? (count / centre.reviewCount) * 100 : 0;
+                                        return (
+                                            <div key={score} className="flex items-center gap-3">
+                                                <span className="text-sm text-zinc-400 w-4">{score}</span>
+                                                <div className="flex-1 h-2 bg-zinc-800 rounded-full overflow-hidden">
+                                                    <div
+                                                        className="h-full bg-yellow-400 rounded-full transition-all"
+                                                        style={{ width: `${percentage}%` }}
+                                                    />
+                                                </div>
+                                                <span className="text-sm text-zinc-500 w-8 text-right">{count}</span>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+
+                                {centre.reviewsLink && (
+                                    <a
+                                        href={centre.reviewsLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 mt-6 text-primary hover:text-primary/80 transition-colors"
+                                    >
+                                        Voir tous les avis sur Google Maps
+                                        <ArrowLeft className="h-4 w-4 rotate-180" />
+                                    </a>
+                                )}
                             </div>
-                        </div>
+                        )}
+
+                        {/* For mock listings - show a call to action instead */}
+                        {!centre.isReal && (
+                            <div className="glass p-8 rounded-3xl border border-white/5">
+                                <h2 className="text-2xl font-bold text-white mb-4">Avis clients</h2>
+                                <p className="text-zinc-400">
+                                    Aucun avis vérifié disponible pour le moment. Contactez directement ce professionnel pour plus d&apos;informations.
+                                </p>
+                            </div>
+                        )}
                     </div>
 
                     {/* Right Column - Sidebar */}

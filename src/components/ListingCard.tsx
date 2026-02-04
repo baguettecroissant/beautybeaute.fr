@@ -15,6 +15,7 @@ interface ListingCardProps {
     imageUrl: string;
     slug: string;
     serviceSlug: string;
+    serviceName?: string;
 }
 
 export function ListingCard({
@@ -27,6 +28,7 @@ export function ListingCard({
     imageUrl,
     slug,
     serviceSlug,
+    serviceName,
 }: ListingCardProps) {
     return (
         <div className="group glass-card rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-[0_0_40px_-10px_rgba(109,40,217,0.3)]">
@@ -70,10 +72,13 @@ export function ListingCard({
                             <span className="line-clamp-1">{address || city}</span>
                         </div>
 
-                        <div className="mt-4 flex flex-wrap gap-2">
-                            <span className="text-xs px-2 py-1 rounded-md bg-white/5 border border-white/5 text-zinc-400">Cryolipolyse</span>
-                            <span className="text-xs px-2 py-1 rounded-md bg-white/5 border border-white/5 text-zinc-400">Laser</span>
-                        </div>
+                        {serviceName && (
+                            <div className="mt-4 flex flex-wrap gap-2">
+                                <span className="text-xs px-2 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary">
+                                    {serviceName}
+                                </span>
+                            </div>
+                        )}
                     </div>
 
                     <div className="mt-6 flex items-center justify-end">
@@ -88,3 +93,4 @@ export function ListingCard({
         </div>
     );
 }
+

@@ -14,10 +14,14 @@ export interface City {
   name: string;
   slug: string;
   zip: string;
-  department_name: string;
+  department_name?: string;
   department_code: string;
-  region: string;
-  coordinates: {
+  region?: string;
+  // Flat coordinates (new format)
+  lat?: number;
+  lng?: number;
+  // Nested coordinates (old format)
+  coordinates?: {
     lat: number;
     lng: number;
   };

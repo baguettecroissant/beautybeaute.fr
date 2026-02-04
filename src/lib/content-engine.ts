@@ -145,15 +145,33 @@ interface ListingSearchResult {
     phone: string;
     imageUrl: string;
     slug: string;
+    isReal: boolean;
+    reviewsPerScore?: { [key: string]: number } | null;
+    reviewsLink?: string;
+    gmapsUrl?: string;
 }
 
 export function generateMockedCentres(service: Service, city: City): ListingSearchResult[] {
     const random = createSeededRandom(`centres-${city.slug}-${service.slug}`);
 
+    // Map service slug to serviceId used in listings-db
+    const serviceIdMap: Record<string, string[]> = {
+        'epilation-laser': ['laser'],
+        'cryolipolyse-minceur': ['cryo', 'cryolipolyse'],
+        'soin-hydrafacial': ['hydra', 'hydrafacial'],
+        'injections-esthetique': ['injections', 'botox'],
+    };
+
+    const validServiceIds = serviceIdMap[service.slug] || [service.id];
+
     // 1. Try to find REAL listings from DB
-    // Filter by city name or zip code and deduplicate by ID
-    const realListings = listingsDb
-        .filter(l => l.city.toLowerCase() === city.name.toLowerCase() || l.zipCode === city.zip)
+    // Filter by city name AND serviceId, then deduplicate by ID
+    const realListings = (listingsDb as any[])
+        .filter(l => {
+            const cityMatch = l.city.toLowerCase() === city.name.toLowerCase() || l.zipCode === city.zip;
+            const serviceMatch = validServiceIds.includes(l.serviceId);
+            return cityMatch && serviceMatch;
+        })
         .filter((v, i, a) => a.findIndex(t => t.id === v.id) === i);
 
     if (realListings.length > 0) {
@@ -164,9 +182,13 @@ export function generateMockedCentres(service: Service, city: City): ListingSear
             rating: typeof l.rating === 'number' ? l.rating : parseFloat(String(l.rating).replace(',', '.')),
             reviewCount: typeof l.reviewCount === 'number' ? l.reviewCount : parseInt(String(l.reviewCount)),
             verified: true,
-            phone: '', // Phone not in CSV yet
+            phone: l.phone || '',
             imageUrl: l.imageUrl && l.imageUrl.startsWith('http') ? l.imageUrl : '/images/placeholder-listing.jpg',
-            slug: l.id // Using ID as slug for now
+            slug: l.id,
+            isReal: true,
+            reviewsPerScore: l.reviewsPerScore || null,
+            reviewsLink: l.reviewsLink || '',
+            gmapsUrl: l.gmapsUrl || ''
         }));
     }
 
@@ -190,8 +212,9 @@ export function generateMockedCentres(service: Service, city: City): ListingSear
             reviewCount: Math.floor(random() * 200) + 20,
             verified: random() > 0.8,
             phone: '01 00 00 00 00',
-            imageUrl: `https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=800&q=80`, // High quality medical aesthetic placeholder
-            slug: slug
+            imageUrl: `https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=800&q=80`,
+            slug: slug,
+            isReal: false
         });
     }
 

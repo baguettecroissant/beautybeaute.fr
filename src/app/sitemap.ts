@@ -1,17 +1,20 @@
 import { MetadataRoute } from 'next';
 import { services } from '@/data/services';
 import { cities } from '@/data/cities';
+import { getAllPosts } from '@/data/blog-posts';
 
 const BASE_URL = 'https://beautybeaute.fr';
 const URLS_PER_SITEMAP = 10000;
 
 // Calculate total number of sitemaps needed
 function getTotalSitemaps(): number {
-    // Homepage + services + cities + (services * cities)
-    const staticPages = 1 + services.length + 4; // +4 for legal pages
+    const blogPosts = getAllPosts();
+    // Homepage + services + cities + (services * cities) + blog pages
+    const staticPages = 1 + services.length + 4 + 1; // +4 for legal pages, +1 for blog listing
+    const blogPages = blogPosts.length;
     const cityPages = cities.length; // /ville/[city] pages
     const serviceCityPages = services.length * cities.length; // /[service]/[city] pages
-    const totalUrls = staticPages + cityPages + serviceCityPages;
+    const totalUrls = staticPages + blogPages + cityPages + serviceCityPages;
     return Math.ceil(totalUrls / URLS_PER_SITEMAP);
 }
 
@@ -28,6 +31,7 @@ export default async function sitemap({
     id: number;
 }): Promise<MetadataRoute.Sitemap> {
     const urls: MetadataRoute.Sitemap = [];
+    const blogPosts = getAllPosts();
 
     // Build all URLs array
     const allUrls: { url: string; priority: number; changeFrequency: 'weekly' | 'monthly' }[] = [];
@@ -35,6 +39,7 @@ export default async function sitemap({
     // 1. Static pages
     allUrls.push({ url: BASE_URL, priority: 1.0, changeFrequency: 'weekly' });
     allUrls.push({ url: `${BASE_URL}/pro`, priority: 0.7, changeFrequency: 'monthly' });
+    allUrls.push({ url: `${BASE_URL}/blog`, priority: 0.8, changeFrequency: 'weekly' });
     allUrls.push({ url: `${BASE_URL}/mentions-legales`, priority: 0.3, changeFrequency: 'monthly' });
     allUrls.push({ url: `${BASE_URL}/confidentialite`, priority: 0.3, changeFrequency: 'monthly' });
     allUrls.push({ url: `${BASE_URL}/cookies`, priority: 0.3, changeFrequency: 'monthly' });
@@ -48,7 +53,16 @@ export default async function sitemap({
         });
     }
 
-    // 3. City pages (/ville/[city]) - ALL 35K cities
+    // 3. Blog article pages
+    for (const post of blogPosts) {
+        allUrls.push({
+            url: `${BASE_URL}/blog/${post.slug}`,
+            priority: 0.7,
+            changeFrequency: 'monthly',
+        });
+    }
+
+    // 4. City pages (/ville/[city]) - ALL 35K cities
     for (const city of cities) {
         allUrls.push({
             url: `${BASE_URL}/ville/${city.slug}`,

@@ -15,6 +15,16 @@ function toRadians(degrees: number): number {
 }
 
 /**
+ * Get city coordinates safely (handles both flat and nested formats)
+ */
+function getCityCoords(city: City): { lat: number; lng: number } {
+    return {
+        lat: city.lat ?? city.coordinates?.lat ?? 0,
+        lng: city.lng ?? city.coordinates?.lng ?? 0,
+    };
+}
+
+/**
  * Calculate distance between two points using Haversine formula
  * @returns Distance in kilometers
  */
@@ -47,12 +57,17 @@ export function getNearbyCities(
     allCities: City[],
     limit: number = 10
 ): NearbyCity[] {
+    const cityCoords = getCityCoords(city);
+
     const citiesWithDistance = allCities
         .filter((c) => c.slug !== city.slug) // Exclude current city
-        .map((c) => ({
-            ...c,
-            distance: calculateDistance(city.coordinates.lat, city.coordinates.lng, c.coordinates.lat, c.coordinates.lng),
-        }))
+        .map((c) => {
+            const coords = getCityCoords(c);
+            return {
+                ...c,
+                distance: calculateDistance(cityCoords.lat, cityCoords.lng, coords.lat, coords.lng),
+            };
+        })
         .sort((a, b) => a.distance - b.distance)
         .slice(0, limit);
 
@@ -77,12 +92,18 @@ export function getCitiesWithinRadius(
     allCities: City[],
     radiusKm: number
 ): NearbyCity[] {
+    const cityCoords = getCityCoords(city);
+
     return allCities
         .filter((c) => c.slug !== city.slug)
-        .map((c) => ({
-            ...c,
-            distance: calculateDistance(city.coordinates.lat, city.coordinates.lng, c.coordinates.lat, c.coordinates.lng),
-        }))
+        .map((c) => {
+            const coords = getCityCoords(c);
+            return {
+                ...c,
+                distance: calculateDistance(cityCoords.lat, cityCoords.lng, coords.lat, coords.lng),
+            };
+        })
         .filter((c) => c.distance <= radiusKm)
         .sort((a, b) => a.distance - b.distance);
 }
+

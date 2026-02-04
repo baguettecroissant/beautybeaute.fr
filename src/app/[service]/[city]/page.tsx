@@ -132,6 +132,7 @@ export default async function ServiceCityPage({
                                         imageUrl={centre.imageUrl}
                                         slug={centre.slug}
                                         serviceSlug={service.slug}
+                                        serviceName={service.name}
                                     />
                                 ))}
                             </div>

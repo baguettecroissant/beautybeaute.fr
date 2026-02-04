@@ -41,6 +41,12 @@ export function Header() {
                             {service.name}
                         </Link>
                     ))}
+                    <Link
+                        href="/blog"
+                        className="text-sm font-medium text-white/70 hover:text-white hover:text-glow transition-all"
+                    >
+                        Blog
+                    </Link>
                 </nav>
 
                 {/* Desktop CTA */}
@@ -84,6 +90,12 @@ export function Header() {
                                         {service.name}
                                     </Link>
                                 ))}
+                                <Link
+                                    href="/blog"
+                                    className="text-2xl font-light text-white/80 hover:text-white hover:scale-110 transition-all"
+                                >
+                                    Blog
+                                </Link>
                                 <div className="pt-8">
                                     <Link href="/pro">
                                         <Button size="lg" className="rounded-full text-lg px-8 bg-primary hover:bg-primary/90 text-white shadow-xl shadow-primary/20">
