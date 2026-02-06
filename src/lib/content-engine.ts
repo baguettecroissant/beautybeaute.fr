@@ -149,6 +149,9 @@ interface ListingSearchResult {
     reviewsPerScore?: { [key: string]: number } | null;
     reviewsLink?: string;
     gmapsUrl?: string;
+    lat?: number;
+    lng?: number;
+    zip?: string;
 }
 
 export function generateMockedCentres(service: Service, city: City): ListingSearchResult[] {
@@ -188,7 +191,10 @@ export function generateMockedCentres(service: Service, city: City): ListingSear
             isReal: true,
             reviewsPerScore: l.reviewsPerScore || null,
             reviewsLink: l.reviewsLink || '',
-            gmapsUrl: l.gmapsUrl || ''
+            gmapsUrl: l.gmapsUrl || '',
+            lat: l.lat,
+            lng: l.lng,
+            zip: l.zipCode
         }));
     }
 

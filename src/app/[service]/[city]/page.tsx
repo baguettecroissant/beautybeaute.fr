@@ -4,6 +4,7 @@ import { Hero } from '@/components/Hero';
 import { ListingCard } from '@/components/ListingCard';
 import { InternalLinking } from '@/components/InternalLinking';
 import { FAQSection } from '@/components/FAQSection';
+import { ListingJsonLd } from '@/components/ListingJsonLd';
 import { getServiceBySlug, services } from '@/data/services';
 import { getCityBySlug, getTopCities, cities } from '@/data/cities';
 import { generateContent, generateFAQ, generateMockedCentres } from '@/lib/content-engine';
@@ -100,6 +101,7 @@ export default async function ServiceCityPage({
 
             {/* Main Content */}
             <div className="container py-12 relative z-10">
+                <ListingJsonLd listings={centres} city={city} service={service} />
                 <div className="grid lg:grid-cols-3 gap-12">
                     {/* Left Column - Content */}
                     <div className="lg:col-span-2 space-y-16">
