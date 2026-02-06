@@ -665,6 +665,122 @@ Une crème anesthésiante est appliquée 30-45 minutes avant le soin. La sensati
 - [Hydrafacial Lyon](/soin-hydrafacial/lyon)
 - [Hydrafacial Marseille](/soin-hydrafacial/marseille)
 `
+    },
+    {
+        slug: 'comment-choisir-medecin-esthetique',
+        title: 'Comment choisir son médecin esthétique : Les critères essentiels',
+        excerpt: 'Confier son visage n\'est pas anodin. Découvrez les 5 critères fondamentaux pour choisir le bon praticien et éviter les pièges.',
+        category: 'conseils',
+        publishedAt: '2026-02-06',
+        author: {
+            name: 'Dr. Sophie Martin',
+            role: 'Médecin Esthétique'
+        },
+        imageUrl: '/images/blog/choisir-medecin-esthetique.png',
+        readTime: 6,
+        metaDescription: 'Comment choisir son médecin esthétique ? Diplômes, avis, première consultation, prix. Guide complet pour trouver un bon praticien en toute confiance.',
+        keywords: ['choisir médecin esthétique', 'bon praticien esthétique', 'meilleur médecin esthétique', 'avis médecin esthétique', 'prix consultation esthétique'],
+        content: `
+## Introduction : Un choix décisif pour votre beauté et votre sécurité
+
+Décider de recourir à la médecine esthétique est une étape importante. Mais face à la multiplication des offres et des cabinets, **comment choisir son médecin esthétique** en toute sérénité ?
+
+Selon une étude récente, 78% des patients citent la **confiance** comme le critère numéro 1, bien avant le prix. Et ils ont raison : confier son visage ou son corps nécessite une expertise médicale avérée. Un "bon praticien" n'est pas seulement celui qui réalise le geste technique, c'est celui qui sait dire non, qui vous écoute et qui assure un suivi rigoureux.
+
+Dans ce guide, nous vous détaillons les critères objectifs pour sélectionner le professionnel qui saura sublimer votre beauté en toute sécurité.
+
+## 1. Vérifier les diplômes et qualifications
+
+### La base médicale
+C'est le critère non négociable. En France, seuls les médecins inscrits au Conseil de l'Ordre sont autorisés à pratiquer des actes de médecine esthétique (injections, lasers médicaux, peelings profonds, etc.).
+
+Vous pouvez vérifier l'inscription d'un praticien sur l'annuaire public du [Conseil National de l'Ordre des Médecins](https://www.conseil-national.medecin.fr/annuaire).
+
+### Les diplômes spécifiques
+La "médecine esthétique" n'est pas une spécialité en soi (comme la cardiologie), mais une compétence acquise via des diplômes universitaires (DU) ou inter-universitaires (DIU). Recherchez des mentions comme :
+- **DIU de Médecine Morphologique et Anti-Âge (MMAA)** (le seul reconnu par le Conseil de l'Ordre)
+- **DU de Lasers Médicaux**
+- **DU d'Injections**
+
+> **Attention** : Fuyez les "injecteurs" non médecins trouvés sur les réseaux sociaux. L'exercice illégal de la médecine est un délit et présente de graves risques sanitaires.
+
+## 2. La première consultation : un moment clé
+
+La première consultation ne doit jamais être un acte de vente rapide. C'est un diagnostic médical complet.
+
+### Ce que le médecin doit faire :
+- **Interrogatoire complet** : antécédents médicaux, allergies, traitements en cours.
+- **Examen clinique** : analyse de votre peau, de votre morphologie.
+- **Écoute** : comprendre vos complexes et vos attentes réalistes.
+- **Information** : expliquer les risques, les effets secondaires et les contre-indications.
+
+### Les "Red Flags" (signaux d'alerte) :
+- Le médecin ne vous examine pas ou reste derrière son bureau.
+- Il vous pousse à consommer plus d'actes que prévu ("vous devriez aussi refaire vos lèvres...").
+- Il vous garantit un résultat "parfait" sans évoquer les aléas.
+- Le devis est griffonné sur un coin de table.
+
+## 3. Le lieu et l'hygiène
+
+Le cadre doit respirer le professionnalisme. Que ce soit un cabinet privé ou une clinique, les normes d'hygiène doivent être irréprochables (asepsie, matériel stérile à usage unique).
+
+Pour les actes techniques comme l'[épilation laser](/epilation-laser) ou la [cryolipolyse](/cryolipolyse-minceur), assurez-vous que le médecin dispose d'un plateau technique moderne et entretenu. Les machines "low cost" sont souvent moins efficaces et plus risquées.
+
+## 4. La transparence des tarifs et le devis
+
+La loi oblige le praticien à remettre un **devis détaillé** pour tout acte esthétique supérieur à 300€ ou comportant une anesthésie générale.
+
+Ce devis doit mentionner :
+- La nature exacte de l'acte
+- Le prix TTC
+- Le numéro d'assurance RCP du médecin
+- Un délai de réflexion légal (généralement 15 jours)
+
+### Tableau comparatif des tarifs moyens (base indicative)
+
+| Acte | Prix moyen constaté | Durée moyenne |
+|------|---------------------|---------------|
+| Consultation bilan | 50€ - 100€ | 30-45 min |
+| Injection Acide Hyaluronique | 300€ - 450€ (par seringue) | 20-30 min |
+| Injection Botox | 350€ - 450€ (par flacon) | 15 min |
+| Séance Épilation Laser (maillot) | 80€ - 150€ | 15-20 min |
+| Séance Cryolipolyse (1 zone) | 350€ - 500€ | 45-60 min |
+
+## 5. Le suivi post-acte
+
+Un bon médecin esthétique assure le "service après-vente". Il doit être joignable en cas de complication ou d'inquiétude après l'acte.
+
+Demandez toujours :
+- "Qui puis-je appeler en cas d'urgence le week-end ?"
+- "Une visite de contrôle est-elle prévue ?" (elle est souvent incluse pour les injections ou la cryolipolyse).
+
+## FAQ : Questions fréquentes lors du choix
+
+### Comment se fier aux avis Google ?
+Les avis en ligne sont utiles mais doivent être pris avec recul. Regardez la **tendance générale** et la manière dont le médecin répond aux critiques négatives. Des avis 100% positifs sans aucun détail peuvent être suspects. Privilégiez le bouche-à-oreille et les photos avant/après montrées en consultation (plus fiables que sur Instagram).
+
+### Un médecin généraliste peut-il faire de l'esthétique ?
+Oui, tout docteur en médecine peut pratiquer des actes esthétiques s'il est formé et assuré pour cela. De nombreux médecins esthétiques sont issus de la médecine générale et ont suivi des formations spécifiques (DIU MMAA).
+
+### Faut-il choisir un dermatologue ou un médecin esthétique ?
+Les deux sont qualifiés.
+- Le **dermatologue** est le spécialiste des maladies de peau. C'est le choix idéal pour traiter l'acné, la couperose ou vérifier des grains de beauté avant un laser.
+- Le **médecin esthétique** se consacre exclusivement à l'esthétique et au vieillissement. Il a souvent une expertise très pointue sur les injections et les techniques de rajeunissement.
+
+### Le prix est-il gage de qualité ?
+Pas toujours, mais des prix anormalement bas doivent vous alerter. Des injections à prix cassés peuvent cacher des produits de mauvaise qualité ou contrefaits. Ne bradez pas votre visage.
+
+## Conclusion
+
+Choisir son médecin esthétique est une démarche personnelle qui demande du temps. Ne vous précipitez pas. La confiance se construit lors du premier rendez-vous.
+
+Si vous cherchez des praticiens qualifiés pour des soins spécifiques, n'hésitez pas à consulter nos guides par ville :
+- [Nos centres partenaires à Paris](/soin-hydrafacial/paris)
+- [Nos recommandations à Lyon](/epilation-laser/lyon)
+- [Les experts à Marseille](/cryolipolyse-minceur/marseille)
+
+Votre beauté mérite l'excellence et la sécurité.
+`
     }
 ];
 
