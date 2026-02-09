@@ -24,6 +24,9 @@ export const metadata: Metadata = {
     "botox",
     "France",
   ],
+  icons: {
+    icon: "/icon.png",
+  },
   robots: {
     index: true,
     follow: true,
