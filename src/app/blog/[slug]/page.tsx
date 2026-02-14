@@ -48,56 +48,191 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
     };
 }
 
-// Simple markdown to HTML converter for blog content
-function renderMarkdown(content: string): string {
-    return content
-        // Headers
-        .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold text-white mt-8 mb-4">$1</h3>')
-        .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold text-white mt-10 mb-4">$1</h2>')
-        .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold text-white mt-12 mb-6">$1</h1>')
-        // Bold and italic
+// ─── Inline Markdown Renderer ────────────────────────────────────────────────
+function renderInline(text: string): string {
+    return text
+        // Bold + italic
         .replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>')
+        // Bold
         .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        // Italic
+        .replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>')
         // Links
         .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-primary hover:underline">$1</a>')
-        // Blockquotes
-        .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-primary pl-4 my-4 text-zinc-300 italic">$1</blockquote>')
-        // Horizontal rules
-        .replace(/^---$/gim, '<hr class="my-8 border-zinc-800" />')
-        // Lists
-        .replace(/^\d+\. (.*$)/gim, '<li class="ml-6 list-decimal text-zinc-300 mb-2">$1</li>')
-        .replace(/^- (.*$)/gim, '<li class="ml-6 list-disc text-zinc-300 mb-2">$1</li>')
-        // Tables (basic support)
-        .replace(/\|(.+)\|/g, (match) => {
-            const cells = match.split('|').filter(c => c.trim());
-            if (cells.every(c => c.trim().match(/^-+$/))) {
-                return ''; // Skip separator row
-            }
-            const isHeader = match.includes('---');
-            const cellTag = 'td';
-            const cellsHtml = cells.map(c =>
-                `<${cellTag} class="px-4 py-2 border border-zinc-800">${c.trim()}</${cellTag}>`
-            ).join('');
-            return `<tr class="bg-zinc-900/50">${cellsHtml}</tr>`;
-        })
-        // Emoji-like symbols
+        // Emojis
         .replace(/✅/g, '<span class="text-green-400">✅</span>')
         .replace(/❌/g, '<span class="text-red-400">❌</span>')
         .replace(/⚠️/g, '<span class="text-yellow-400">⚠️</span>')
-        .replace(/⭐/g, '<span class="text-yellow-400">⭐</span>')
-        // Paragraphs
-        .split('\n\n')
-        .map(p => {
-            if (p.startsWith('<h') || p.startsWith('<blockquote') || p.startsWith('<li') || p.startsWith('<hr') || p.startsWith('<tr')) {
-                return p;
+        .replace(/⭐/g, '<span class="text-yellow-400">⭐</span>');
+}
+
+// ─── Block-level Markdown Renderer (2-pass) ──────────────────────────────────
+function renderMarkdown(content: string): string {
+    const lines = content.split('\n');
+    const htmlBlocks: string[] = [];
+    let i = 0;
+
+    while (i < lines.length) {
+        const line = lines[i];
+        const trimmed = line.trim();
+
+        // ── Skip empty lines ──
+        if (trimmed === '') {
+            i++;
+            continue;
+        }
+
+        // ── Headings ──
+        if (trimmed.startsWith('### ')) {
+            htmlBlocks.push(`<h3 class="text-xl font-bold text-white mt-8 mb-4">${renderInline(trimmed.slice(4))}</h3>`);
+            i++;
+            continue;
+        }
+        if (trimmed.startsWith('## ')) {
+            htmlBlocks.push(`<h2 class="text-2xl font-bold text-white mt-10 mb-4">${renderInline(trimmed.slice(3))}</h2>`);
+            i++;
+            continue;
+        }
+        if (trimmed.startsWith('# ')) {
+            htmlBlocks.push(`<h1 class="text-3xl font-bold text-white mt-12 mb-6">${renderInline(trimmed.slice(2))}</h1>`);
+            i++;
+            continue;
+        }
+
+        // ── Horizontal rule ──
+        if (trimmed === '---' || trimmed === '***' || trimmed === '___') {
+            htmlBlocks.push('<hr class="my-8 border-zinc-800" />');
+            i++;
+            continue;
+        }
+
+        // ── Table block ──
+        if (trimmed.includes('|') && trimmed.startsWith('|')) {
+            const tableLines: string[] = [];
+            while (i < lines.length && lines[i].trim().startsWith('|') && lines[i].trim().endsWith('|')) {
+                tableLines.push(lines[i].trim());
+                i++;
             }
-            if (p.trim()) {
-                return `<p class="text-zinc-300 leading-relaxed mb-4">${p.replace(/\n/g, '<br/>')}</p>`;
+            if (tableLines.length >= 2) {
+                htmlBlocks.push(renderTable(tableLines));
             }
-            return '';
-        })
-        .join('\n');
+            continue;
+        }
+
+        // ── Blockquote block (group consecutive > lines) ──
+        if (trimmed.startsWith('> ') || trimmed === '>') {
+            const bqLines: string[] = [];
+            while (i < lines.length && (lines[i].trim().startsWith('> ') || lines[i].trim() === '>')) {
+                bqLines.push(lines[i].trim().replace(/^>\s?/, ''));
+                i++;
+            }
+            const bqContent = bqLines.map(l => renderInline(l)).join('<br/>');
+            htmlBlocks.push(`<blockquote class="border-l-4 border-primary pl-4 my-6 py-3 text-zinc-300 italic bg-zinc-900/30 rounded-r-lg">${bqContent}</blockquote>`);
+            continue;
+        }
+
+        // ── Ordered list block ──
+        if (/^\d+\.\s/.test(trimmed)) {
+            const listItems: string[] = [];
+            while (i < lines.length && /^\d+\.\s/.test(lines[i].trim())) {
+                listItems.push(renderInline(lines[i].trim().replace(/^\d+\.\s/, '')));
+                i++;
+            }
+            const lis = listItems.map(li => `<li class="text-zinc-300 mb-2">${li}</li>`).join('');
+            htmlBlocks.push(`<ol class="list-decimal ml-6 my-4 space-y-1">${lis}</ol>`);
+            continue;
+        }
+
+        // ── Unordered list block (-, *, •) ──
+        if (/^[-*•]\s/.test(trimmed)) {
+            const listItems: string[] = [];
+            while (i < lines.length && /^[-*•]\s/.test(lines[i].trim())) {
+                listItems.push(renderInline(lines[i].trim().replace(/^[-*•]\s/, '')));
+                i++;
+            }
+            const lis = listItems.map(li => `<li class="text-zinc-300 mb-2">${li}</li>`).join('');
+            htmlBlocks.push(`<ul class="list-disc ml-6 my-4 space-y-1">${lis}</ul>`);
+            continue;
+        }
+
+        // ── Paragraph (default) ──
+        // Collect consecutive non-special lines into a single paragraph
+        const paraLines: string[] = [];
+        while (i < lines.length) {
+            const pLine = lines[i].trim();
+            if (pLine === '' ||
+                pLine.startsWith('#') ||
+                pLine.startsWith('>') ||
+                pLine.startsWith('|') ||
+                pLine === '---' || pLine === '***' || pLine === '___' ||
+                /^\d+\.\s/.test(pLine) ||
+                /^[-*•]\s/.test(pLine)) {
+                break;
+            }
+            paraLines.push(pLine);
+            i++;
+        }
+        if (paraLines.length > 0) {
+            const paraContent = paraLines.map(l => renderInline(l)).join('<br/>');
+            htmlBlocks.push(`<p class="text-zinc-300 leading-relaxed mb-4">${paraContent}</p>`);
+        }
+    }
+
+    return htmlBlocks.join('\n');
+}
+
+// ─── Table Renderer ──────────────────────────────────────────────────────────
+function renderTable(tableLines: string[]): string {
+    // Parse cells from a row line like "| cell1 | cell2 | cell3 |"
+    const parseCells = (line: string): string[] => {
+        return line.split('|').slice(1, -1).map(c => c.trim());
+    };
+
+    // Detect separator row (e.g. |---|:---:|---:|)
+    const isSeparator = (line: string): boolean => {
+        const cells = parseCells(line);
+        return cells.every(c => /^:?-+:?$/.test(c));
+    };
+
+    // Find separator row index
+    let separatorIdx = -1;
+    for (let j = 0; j < tableLines.length; j++) {
+        if (isSeparator(tableLines[j])) {
+            separatorIdx = j;
+            break;
+        }
+    }
+
+    let thead = '';
+    let tbodyRows: string[] = [];
+
+    if (separatorIdx >= 0) {
+        // Everything before separator is header
+        const headerLines = tableLines.slice(0, separatorIdx);
+        const bodyLines = tableLines.slice(separatorIdx + 1);
+
+        const headerRowsHtml = headerLines.map(hl => {
+            const cells = parseCells(hl);
+            const ths = cells.map(c => `<th class="px-4 py-3 text-left text-sm font-semibold text-white bg-zinc-800/80 border-b border-zinc-700">${renderInline(c)}</th>`).join('');
+            return `<tr>${ths}</tr>`;
+        }).join('');
+        thead = `<thead>${headerRowsHtml}</thead>`;
+
+        tbodyRows = bodyLines.filter(bl => !isSeparator(bl));
+    } else {
+        // No separator found: treat all as body
+        tbodyRows = tableLines;
+    }
+
+    const tbodyHtml = tbodyRows.map((row, idx) => {
+        const cells = parseCells(row);
+        const bgClass = idx % 2 === 0 ? 'bg-zinc-900/50' : 'bg-zinc-900/30';
+        const tds = cells.map(c => `<td class="px-4 py-3 text-sm text-zinc-300 border-b border-zinc-800/50">${renderInline(c)}</td>`).join('');
+        return `<tr class="${bgClass} hover:bg-zinc-800/50 transition-colors">${tds}</tr>`;
+    }).join('');
+    const tbody = `<tbody>${tbodyHtml}</tbody>`;
+
+    return `<div class="overflow-x-auto my-6 rounded-xl border border-zinc-800"><table class="w-full border-collapse text-left">${thead}${tbody}</table></div>`;
 }
 
 export default async function BlogArticlePage({ params }: BlogArticlePageProps) {
@@ -111,8 +246,42 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
     const relatedPosts = getRelatedPosts(slug, 3);
     const categoryName = categories.find(c => c.id === post.category)?.name || post.category;
 
+    // JSON-LD structured data for Article
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: post.title,
+        description: post.metaDescription,
+        image: post.imageUrl,
+        datePublished: post.publishedAt,
+        ...(post.updatedAt ? { dateModified: post.updatedAt } : {}),
+        author: {
+            '@type': 'Person',
+            name: post.author.name,
+            jobTitle: post.author.role,
+        },
+        publisher: {
+            '@type': 'Organization',
+            name: 'BeautyBeauté',
+            url: 'https://www.beautybeaute.fr',
+        },
+        mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `https://www.beautybeaute.fr/blog/${post.slug}`,
+        },
+        keywords: post.keywords.join(', '),
+        wordCount: post.content.split(/\s+/).length,
+        timeRequired: `PT${post.readTime}M`,
+    };
+
     return (
         <div className="min-h-screen bg-black">
+            {/* JSON-LD Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+
             {/* Hero Section */}
             <section className="relative pt-32 pb-16 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
@@ -120,7 +289,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
 
                 <div className="container mx-auto px-4 relative z-10">
                     {/* Breadcrumbs */}
-                    <nav className="flex items-center gap-2 text-sm text-zinc-500 mb-8">
+                    <nav className="flex items-center gap-2 text-sm text-zinc-500 mb-8" aria-label="Fil d'Ariane">
                         <Link href="/" className="hover:text-white transition-colors">Accueil</Link>
                         <ChevronRight className="h-4 w-4" />
                         <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
@@ -154,11 +323,13 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
                             </div>
                             <div className="flex items-center gap-2">
                                 <Calendar className="h-4 w-4" />
-                                <span>{new Date(post.publishedAt).toLocaleDateString('fr-FR', {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                })}</span>
+                                <time dateTime={post.publishedAt}>
+                                    {new Date(post.publishedAt).toLocaleDateString('fr-FR', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    })}
+                                </time>
                             </div>
                             <div className="flex items-center gap-2">
                                 <Clock className="h-4 w-4" />
@@ -183,15 +354,15 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
                 </div>
             </section>
 
-            {/* Article Content */}
-            <section className="container mx-auto px-4 pb-16">
+            {/* Article Content — semantic <article> wrapper */}
+            <article className="container mx-auto px-4 pb-16">
                 <div className="max-w-3xl mx-auto">
                     <div
                         className="prose prose-invert prose-lg max-w-none"
                         dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }}
                     />
                 </div>
-            </section>
+            </article>
 
             {/* Related Articles */}
             {relatedPosts.length > 0 && (
