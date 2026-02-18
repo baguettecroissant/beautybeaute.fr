@@ -18,6 +18,123 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
     {
+        slug: 'prix-injections-acide-hyaluronique-tarifs-zones',
+        title: 'Prix injections acide hyaluronique : tarifs par zone & comparatif 2025',
+        excerpt: 'Tout savoir sur le prix des injections d\'acide hyaluronique en France en 2025. Tarifs par zone (lèvres, cernes, visage), facteurs de coût et comparatif.',
+        category: 'injections',
+        publishedAt: '2026-02-18',
+        author: {
+            name: 'Dr. Sophie Martin',
+            role: 'Médecin Esthétique'
+        },
+        imageUrl: '/images/blog/prix-injections-acide-hyaluronique-2025.png',
+        readTime: 8,
+        metaDescription: 'Prix injections acide hyaluronique : tarifs par zone (lèvres, cernes, visage). Comparatif 2025, durée des résultats et remboursement. Guide complet.',
+        keywords: [
+            "prix injection acide hyaluronique",
+            "tarif acide hyaluronique lèvres",
+            "prix injection cernes",
+            "coût injection visage",
+            "injection acide hyaluronique pas cher",
+            "prix seringue acide hyaluronique"
+        ],
+        content: `
+# Prix Injections Acide Hyaluronique : Tarifs par Zone & Comparatif 2025
+
+L'acide hyaluronique est devenu la référence absolue en médecine esthétique pour rajeunir le visage sans chirurgie. Mais **quel est le prix d'une injection d'acide hyaluronique** en France ? C'est souvent la première question que se posent les patients envisageant de redonner du volume à leurs lèvres ou d'effacer des cernes marqués.
+
+Dans ce guide complet, nous détaillons les tarifs pratiqués en 2025 pour chaque zone du visage, les facteurs qui influencent ces coûts, et nous comparons l'efficacité de ces traitements par rapport à leur prix.
+
+## Quel est le prix moyen d'une injection d'acide hyaluronique ?
+
+Le prix d'une injection d'acide hyaluronique en France varie généralement entre **300 € et 450 € par seringue** (1 ml). Ce tarif inclut non seulement le produit lui-même, mais aussi l'expertise du médecin, le diagnostic personnalisé et le suivi post-acte.
+
+Il est important de noter que le devis final dépendra du nombre de seringues nécessaires pour obtenir le résultat harmonieux que vous souhaitez. Pour un traitement complet du visage (Full Face), un devis sur mesure est systématiquement établi lors de la première consultation.
+
+## Tarifs détaillés par zone d'injection
+
+Voici une estimation des prix moyens constatés en France pour les zones les plus demandées. Ces tarifs sont donnés à titre indicatif et peuvent varier selon les praticiens et les villes.
+
+| Zone traitée | Prix moyen (TTC) | Durée moyenne des résultats |
+| :--- | :--- | :--- |
+| **Lèvres (Volume / Russian Lips)** | 300 € - 450 € | 6 à 12 mois |
+| **Cernes creux** | 350 € - 500 € | 12 à 18 mois |
+| **Sillons nasogéniens** | 320 € - 450 € | 12 à 18 mois |
+| **Pommettes (Volume)** | 350 € - 700 € (selon quantité) | 12 à 18 mois |
+| **Rhinoplastie médicale** | 450 € - 600 € | 12 à 18 mois |
+| **Oval du visage (Jawline)** | 700 € - 1200 € | 12 à 18 mois |
+| **Menton (Génioplastie)** | 350 € - 500 € | 12 à 18 mois |
+
+### Prix injection lèvres acide hyaluronique
+Pour des lèvres repulpées et hydratées, comptez environ **350 € par seringue**. Si vous souhaitez un volume très important (technique Russian Lips) ou une correction d'asymétrie complexe, une seconde seringue peut être nécessaire, augmentant le coût global.
+
+### Prix injection acide hyaluronique cernes
+Le traitement des cernes creux demande une grande technicité et un produit spécifique très fluide pour éviter les œdèmes. Le tarif se situe souvent autour de **400 €**. C'est un excellent investissement car les résultats dans cette zone sont particulièrement durables (jusqu'à 18 mois ou plus).
+
+### Prix injection sillons nasogéniens
+Pour combler ces rides qui partent des ailes du nez jusqu'au coin de la bouche, le prix moyen est de **350 €**. Cela permet de défatiguer instantanément le visage.
+
+## De quoi dépend le prix des injections ?
+
+Plusieurs facteurs justifient les variations de tarifs que vous pouvez constater :
+
+1.  **La qualité du produit** : Il existe de nombreuses marques d'acide hyaluronique (Juvéderm, Restylane, Teosyal, etc.). Les produits de dernière génération, plus souples et plus durables, sont naturellement plus coûteux.
+2.  **La zone traitée** : Certaines zones délicates comme les cernes ou le nez demandent une expertise pointue et des produits spécifiques.
+3.  **La quantité de produit** : Le prix est souvent calculé à la seringue. Un rajeunissement global nécessitera plus de produit qu'une simple retouche des lèvres.
+4.  **L'expérience du praticien** : Un médecin esthétique reconnu pour son savoir-faire et ses résultats naturels peut pratiquer des honoraires plus élevés.
+
+## Comparatif : Acide Hyaluronique vs autres traitements
+
+| Traitement | Objectif | Prix moyen | Durée |
+| :--- | :--- | :--- | :--- |
+| **Acide Hyaluronique** | Combler les volumes, hydrater | 350 € / seringue | 12-18 mois |
+| **Toxine Botulique (Botox)** | Flouter les rides d'expression | 350 € / flacon | 4-6 mois |
+| **Radiesse / Inducteurs** | Effet liftant et stimulation | 400 € / seringue | 12-18 mois |
+
+> **Bon à savoir :** Ces traitements sont souvent complémentaires. Votre médecin pourra vous proposer un plan de traitement combinant par exemple Botox pour le haut du visage et Acide Hyaluronique pour le bas.
+
+## Remboursement et Prise en charge
+
+Il est essentiel de rappeler que les injections d'acide hyaluronique à visée purement esthétique ne sont **jamais remboursées par la Sécurité Sociale**. Elles sont soumises à une TVA de 20%.
+
+Seuls certains cas très rares de chirurgie réparatrice (lipodystrophie sévère liée à des traitements médicaux par exemple) peuvent faire l'objet d'une prise en charge, mais cela reste exceptionnel pour des injections de comblement.
+
+## FAQ : Vos questions sur le prix de l'acide hyaluronique
+
+### Combien coûte une injection pour les rides du lion ?
+La ride du lion se traite généralement avec du Botox (environ 350 €). Si elle est très marquée, une petite quantité d'acide hyaluronique peut être ajoutée en complément, souvent inclus ou facturé en supplément selon la quantité.
+
+### Est-ce que le devis est payant ?
+La consultation initiale est un acte médical à part entière où le médecin analyse votre visage et établit un diagnostic. Elle est généralement facturée entre 50 € et 80 €. Cette somme est parfois déduite de l'acte s'il est réalisé dans la foulée (bien qu'un délai de réflexion soit recommandé).
+
+### Y a-t-il des facilités de paiement ?
+De nombreux cabinets proposent des facilités de paiement en 3 ou 4 fois sans frais pour les plans de traitement plus importants (comme la profiloplastie ou le full face). N'hésitez pas à demander lors de votre consultation.
+
+### Combien de temps durent les effets ?
+Contrairement aux idées reçues, l'acide hyaluronique n'est pas "permanent". Il se résorbe naturellement. Comptez 6 à 12 mois pour les lèvres et 12 à 18 mois pour les pommettes ou les cernes. Des séances d'entretien (souvent moins coûteuses car nécessitant moins de produit) permettent de pérenniser le résultat.
+
+### Pourquoi les prix varient-ils d'une ville à l'autre ?
+Les charges locatives et de fonctionnement étant plus élevées à Paris ou dans les grandes métropoles, les tarifs y sont souvent légèrement supérieurs à ceux pratiqués en province. Cependant, la priorité doit toujours rester la sécurité et la compétence du médecin, avant le prix.
+
+## Conclusion
+
+Le prix des injections d'acide hyaluronique reflète la qualité d'un acte médical sécurisé, réalisé avec des produits haut de gamme et résorbables. C'est un investissement pour votre bien-être et votre confiance en vous.
+
+Pour obtenir un devis précis et personnalisé, la première étape est toujours une consultation avec un médecin expert.
+
+<div className="cta-block">
+  <h3>Envie de rajeunir votre visage naturellement ?</h3>
+  <p>Prenez rendez-vous dès aujourd'hui pour un diagnostic personnalisé avec nos médecins esthétiques.</p>
+  <a href="/injections-esthetique" className="btn-primary">Découvrir nos soins Injections</a>
+</div>
+
+**Découvrez aussi nos autres guides tarifaires :**
+*   [Prix Épilation Laser](/epilation-laser)
+*   [Tarifs Cryolipolyse](/cryolipolyse-minceur)
+*   [Soin Hydrafacial : Le guide](/soin-hydrafacial)
+`
+    },
+    {
         slug: 'prix-epilation-laser-2026-tarifs-zones-villes',
         title: 'Prix épilation laser 2026 : tarifs par zone et par ville',
         excerpt: "Guide complet 2026 sur les prix de l'épilation laser en France. Obtenez tous les tarifs par zone et par ville, comparez avec la lumière pulsée et découvrez la vraie rentabilité de l'épilation définitive.",
