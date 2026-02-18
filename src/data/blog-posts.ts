@@ -19,17 +19,17 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
     {
         slug: 'prix-injections-acide-hyaluronique-tarifs-zones',
-        title: 'Prix injections acide hyaluronique : tarifs par zone & comparatif 2025',
-        excerpt: 'Tout savoir sur le prix des injections d\'acide hyaluronique en France en 2025. Tarifs par zone (lèvres, cernes, visage), facteurs de coût et comparatif.',
+        title: 'Prix injections acide hyaluronique : tarifs par zone & comparatif 2026',
+        excerpt: 'Tout savoir sur le prix des injections d\'acide hyaluronique en France en 2026. Tarifs par zone (lèvres, cernes, visage), facteurs de coût et comparatif.',
         category: 'injections',
         publishedAt: '2026-02-18',
         author: {
             name: 'Dr. Sophie Martin',
             role: 'Médecin Esthétique'
         },
-        imageUrl: '/images/blog/prix-injections-acide-hyaluronique-2025.png',
+        imageUrl: '/images/blog/prix-injections-acide-hyaluronique-2026.png',
         readTime: 8,
-        metaDescription: 'Prix injections acide hyaluronique : tarifs par zone (lèvres, cernes, visage). Comparatif 2025, durée des résultats et remboursement. Guide complet.',
+        metaDescription: 'Prix injections acide hyaluronique : tarifs par zone (lèvres, cernes, visage). Comparatif 2026, durée des résultats et remboursement. Guide complet.',
         keywords: [
             "prix injection acide hyaluronique",
             "tarif acide hyaluronique lèvres",
@@ -39,11 +39,11 @@ export const blogPosts: BlogPost[] = [
             "prix seringue acide hyaluronique"
         ],
         content: `
-# Prix Injections Acide Hyaluronique : Tarifs par Zone & Comparatif 2025
+# Prix Injections Acide Hyaluronique : Tarifs par Zone & Comparatif 2026
 
 L'acide hyaluronique est devenu la référence absolue en médecine esthétique pour rajeunir le visage sans chirurgie. Mais **quel est le prix d'une injection d'acide hyaluronique** en France ? C'est souvent la première question que se posent les patients envisageant de redonner du volume à leurs lèvres ou d'effacer des cernes marqués.
 
-Dans ce guide complet, nous détaillons les tarifs pratiqués en 2025 pour chaque zone du visage, les facteurs qui influencent ces coûts, et nous comparons l'efficacité de ces traitements par rapport à leur prix.
+Dans ce guide complet, nous détaillons les tarifs pratiqués en 2026 pour chaque zone du visage, les facteurs qui influencent ces coûts, et nous comparons l'efficacité de ces traitements par rapport à leur prix.
 
 ## Quel est le prix moyen d'une injection d'acide hyaluronique ?
 
